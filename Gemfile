@@ -8,6 +8,7 @@ gem 'rails', '3.2.13'
 gem 'pg', '~> 0.14.1'
 
 gem 'jquery-rails'
+gem 'meta_request'
 
 gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -25,6 +26,8 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test do

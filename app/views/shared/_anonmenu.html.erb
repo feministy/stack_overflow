@@ -1,4 +1,5 @@
 <ul class="nav">
-  <li class="nav">Signup</li>
-  <li class="nav">Login</li>
+  <li class="nav"><%= link_to "Signup", signup_path %></li>
+  <li class="nav"><%= link_to "Login", login_path %></li>
+  <li class="nav"><%= link_to "Logout", logout_path, method: :delete %></li>
 </ul>
