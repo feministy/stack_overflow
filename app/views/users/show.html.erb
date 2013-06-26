@@ -1,0 +1,13 @@
+<h1> User Profile Page </h1>
+
+<p>Username: <%= @user.username %> </p>
+<p>Email: <%= @user.email %> </p>
+
+<% if @user.questions %>
+  <h2> Questions You've Asked: </h2>
+  <ul>
+    <% @user.questions.each do |question| %> 
+    <li> <%= question.title %> </li>
+    <% end %>
+  </ul>
+<% end %>
