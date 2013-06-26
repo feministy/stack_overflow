@@ -2,8 +2,12 @@
 
 <% if @questions %>
   <% @questions.each do |question| %>
-    <p><%= question.title %></p>
+    <p>
+      <%= question.title %> &bull; <%= link_to "View thread", question_path(question.id) %>
+    </p>
   <% end %>
 <% else %>
-  <p>No questions found - #Add One</p>
+  <p>
+    No questions found! <%= link_to "Add One", new_question_path %>
+  </p>
 <% end %>
