@@ -10,8 +10,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      session[:current_user_id] = user.id
-      redirect_to users_path
+      session[:current_user_id] = @user.id
+      redirect_to new_question_path
     else
       render :new
     end
