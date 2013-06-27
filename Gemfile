@@ -30,6 +30,10 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'guard-rspec'
+  gem 'guard-spork'
+  gem 'childprocess'
+  gem 'spork'
 end
 
 group :test do
@@ -37,6 +41,8 @@ group :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'capybara'
+  gem 'rb-fsevent', :require => false
+  gem 'growl'
   gem 'database_cleaner'
 end
 
