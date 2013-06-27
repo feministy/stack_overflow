@@ -9,11 +9,16 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    @question = Question.new
+    if current_user
+      @question = Question.new
+    else
+      redirect_to login_path
+    end
   end
 
   def create
     @question = Question.new(params[:question])
+    @question.user_id = current_user.id
     if @question.save
       redirect_to questions_path
     else
