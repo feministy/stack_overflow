@@ -31,6 +31,9 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'guard-rspec'
+  gem 'guard-spork'
+  gem 'childprocess'
+  gem 'spork'
 end
 
 group :test do
