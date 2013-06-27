@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe User do
 
+  it { should have_many(:questions) }
+
   before(:each) do
     @count = User.all.count
   end
