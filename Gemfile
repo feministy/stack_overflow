@@ -30,6 +30,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'guard-rspec'
 end
 
 group :test do
@@ -37,5 +38,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'capybara'
+  gem 'rb-fsevent', :require => false
+  gem 'growl'
 end
 
