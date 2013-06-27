@@ -1,9 +1,10 @@
-![stack overfluff](http://i.minus.com/iG82mxaOptL4j.png)
+![stack overfluff](http://i.minus.com/jG82mxaOptL4j_xs.jpg)
+
 # Stack Overfluff
 
 [STAGING](http://staging-stackoverfluff.herokuapp.com) 
 
-[PRODUCTION](http://stackoverfluff.herokuapp.com)
+[PRODUCTION](http://stackoverfluff.herokuapp.com/question)
 
 ## Welcome to Stack Overfluff
 
