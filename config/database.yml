@@ -4,6 +4,12 @@ development:
   database: stackoverflow_development
   host: localhost
 
+staging:
+  adapter: postgresql
+  encoding: utf8
+  database: stackoverflow_staging
+  host: localhost
+
 test:
   adapter: postgresql
   encoding: utf8
