@@ -4,8 +4,18 @@
   <%= @question.content %>
 </p>
 
-<%= form_for @vote do |f| %>
-  <%= f.submit ("Vote Up") %>
+<% if current_user %>
+  <%= form_for @vote do |f| %>
+    <%= hidden_field_tag 'value', '1' %>
+    <%= hidden_field_tag 'question_id', @question.id %>
+    <%= f.submit ("Vote Up") %>
+  <% end %>
+
+  <%= form_for @vote do |f| %>
+    <%= hidden_field_tag 'value', '-1' %>
+    <%= hidden_field_tag 'question_id', @question.id %>
+    <%= f.submit ("Vote Down") %>
+  <% end %>
 <% end %>
 
 <% if current_user.id == @question.user_id %>
