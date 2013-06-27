@@ -2,6 +2,8 @@
 
 <p>Username: <%= @user.username %> </p>
 <p>Email: <%= @user.email %> </p>
+<p><%= link_to "Update Info", edit_user_path %></p>
+
 
 <% if @user.questions %>
   <h2> Questions You've Asked: </h2>
@@ -11,3 +13,5 @@
     <% end %>
   </ul>
 <% end %>
+
+
