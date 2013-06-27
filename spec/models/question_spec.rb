@@ -2,12 +2,15 @@ require 'spec_helper'
 
 describe Question do
 
+  it { should belong_to(:user)}
+  it { should have_many(:comments) }
+
   before(:each) do
     @count = Question.all.count
   end
 
   it "should add a question to the database when successfully created" do
-    Question.create(title: "question1", content: "sample text", user_id: 1)
+    FactoryGirl.create(:question)
     expect(Question.all.count).to eq(@count+1)
   end
 
