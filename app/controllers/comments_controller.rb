@@ -10,6 +10,11 @@ class CommentsController < ApplicationController
   def create
     # Create a new comment
     # Association with question or answer OMG BRAIN
+    @comment = Comment.new
+    if @comment.save
+      redirect_to question_path(question_id)
+    else
+      render SHIT
   end
 
   def edit
