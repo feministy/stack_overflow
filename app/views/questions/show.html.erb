@@ -5,6 +5,9 @@
 </p>
 
 <% if current_user %>
+
+  <p>Score: <%= @question.votes.sum('value') %></p>
+
   <%= form_for @vote do |f| %>
     <%= hidden_field_tag 'value', '1' %>
     <%= hidden_field_tag 'question_id', @question.id %>
@@ -44,6 +47,9 @@
     </p>
 
     <% if current_user %>
+
+      <p>Score: <%= answer.votes.sum('value') %></p>
+
       <%= form_for @vote do |f| %>
         <%= hidden_field_tag 'value', '1' %>
         <%= hidden_field_tag 'question_id', @question.id %>
