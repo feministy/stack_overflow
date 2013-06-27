@@ -15,9 +15,4 @@ class SessionsController < ApplicationController
     session[:current_user_id] = nil
     redirect_to login_path
   end
-
-  private
-  def current_user
-    @_current_user ||= session[:current_user_id] && User.find(session[:current_user_id])
-  end
 end
