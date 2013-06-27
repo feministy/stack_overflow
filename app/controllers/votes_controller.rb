@@ -1,17 +1,5 @@
 class VotesController < ApplicationController
 
-  def index
-
-  end
-  
-  def show
-    
-  end
-
-  def new
-    @vote = Vote.new
-  end
-
   def create
     if params[:type] == 'question'
       question = Question.find(params[:question_id])
@@ -25,4 +13,5 @@ class VotesController < ApplicationController
 
     redirect_to question_path(params[:question_id])
   end
+  
 end
