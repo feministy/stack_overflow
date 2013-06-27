@@ -4,6 +4,25 @@
   <%= @question.content %>
 </p>
 
+<% if current_user %>
+
+  <p>Score: <%= @question.votes.sum('value') %></p>
+
+  <%= form_for @vote do |f| %>
+    <%= hidden_field_tag 'value', '1' %>
+    <%= hidden_field_tag 'question_id', @question.id %>
+    <%= hidden_field_tag 'type', 'question' %>
+    <%= f.submit ("Vote Up") %>
+  <% end %>
+
+  <%= form_for @vote do |f| %>
+    <%= hidden_field_tag 'value', '-1' %>
+    <%= hidden_field_tag 'question_id', @question.id %>
+    <%= hidden_field_tag 'type', 'question' %>
+    <%= f.submit ("Vote Down") %>
+  <% end %>
+<% end %>
+
 <% if current_user.id == @question.user_id %>
   <p>
     You cannot answer your own question.
@@ -26,5 +45,27 @@
     <%= answer.content %><br>
     Answered on <%= (answer.created_at).strftime('%F at %I:%M %p') %> by <%= link_to "#{answer.user.username}", user_path(answer.user_id) %>
     </p>
+
+    <% if current_user %>
+
+      <p>Score: <%= answer.votes.sum('value') %></p>
+
+      <%= form_for @vote do |f| %>
+        <%= hidden_field_tag 'value', '1' %>
+        <%= hidden_field_tag 'question_id', @question.id %>
+        <%= hidden_field_tag 'answer_id', answer.id %>
+        <%= hidden_field_tag 'type', 'answer' %>
+        <%= f.submit ("Vote Up") %>
+      <% end %>
+
+      <%= form_for @vote do |f| %>
+        <%= hidden_field_tag 'value', '-1' %>
+        <%= hidden_field_tag 'question_id', @question.id %>
+        <%= hidden_field_tag 'answer_id', answer.id %>
+        <%= hidden_field_tag 'type', 'answer' %>
+        <%= f.submit ("Vote Down") %>
+      <% end %>
+    <% end %>
+
   <% end %>
 <% end %>
