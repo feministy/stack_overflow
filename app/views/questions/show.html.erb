@@ -4,6 +4,10 @@
   <%= @question.content %>
 </p>
 
+<%= form_for @vote do |f| %>
+  <%= f.submit ("Vote Up") %>
+<% end %>
+
 <% if current_user.id == @question.user_id %>
   <p>
     You cannot answer your own question.
