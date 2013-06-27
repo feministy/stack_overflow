@@ -40,6 +40,16 @@ describe User do
       click_link("Ask a question")
       expect(page).to have_content("Username")
     end
+
+    it "allows user to ask question once logged in" do
+      visit root_path
+      niles = User.create(username: "nilesiscool", email: "niles@cool.com", password: "1234")
+      click_link("Login")
+      fill_in("Username", :with => "nilesiscool")
+      fill_in("Password", :with => "1234")
+      click_button("Login")
+      expect(page).to have_content("New Question")
+    end
   end
 end
 
