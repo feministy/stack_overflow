@@ -3,3 +3,22 @@
 <p>
   <%= @question.content %>
 </p>
+
+
+<%= form_for ([@question, @answer]) do |f| %>
+  <%= f.label :content %>
+  <%= f.text_area :content %><br>
+
+  <%= f.submit ("Submit Answer") %>
+
+<% end %>
+
+
+<% if @question.answers %>
+  <% @question.answers.each do |answer|%>
+    <p>
+    <%= answer.content %><br>
+    Answered on <%= (answer.created_at).strftime('%F at %I:%M %p') %> by <%= link_to "#{answer.user.username}", user_path(answer.user_id) %>
+    </p>
+  <% end %>
+<% end %>
