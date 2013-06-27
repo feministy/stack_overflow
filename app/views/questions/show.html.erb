@@ -4,15 +4,21 @@
   <%= @question.content %>
 </p>
 
-
-<%= form_for ([@question, @answer]) do |f| %>
-  <%= f.label :content %>
-  <%= f.text_area :content %><br>
-
-  <%= f.submit ("Submit Answer") %>
-
+<% if current_user.id == @question.user_id %>
+  <p>
+    You cannot answer your own question.
+  </p>
+<% elsif current_user %>
+  <%= form_for ([@question, @answer]) do |f| %>
+    <%= f.label :content %>
+    <%= f.text_area :content %><br>
+    <%= f.submit ("Submit Answer") %>
+  <% end %>
+<% else %>
+  <p>
+    Have the answer? <%= link_to "Login", login_path %> or <%= link_to "signup", signup_path %> to share your fluff.
+  </p>
 <% end %>
-
 
 <% if @question.answers %>
   <% @question.answers.each do |answer|%>
