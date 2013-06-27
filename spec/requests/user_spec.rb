@@ -5,10 +5,10 @@ describe User do
   context "on login page" do
 
     it "should log in the user with correct credentials" do
-      User.create(username: "niles", email: "hello@niles.com", password: "123456")
+      FactoryGirl.create(:user)
       visit login_path
       fill_in("Username", :with => "niles")
-      fill_in("Password", :with => "123456")
+      fill_in("Password", :with => "1234")
       click_button("Login")
       expect(page).to have_content("New Question")
     end
@@ -43,9 +43,9 @@ describe User do
 
     it "allows user to ask question once logged in" do
       visit root_path
-      niles = User.create(username: "nilesiscool", email: "niles@cool.com", password: "1234")
+      FactoryGirl.create(:user)
       click_link("Login")
-      fill_in("Username", :with => "nilesiscool")
+      fill_in("Username", :with => "niles")
       fill_in("Password", :with => "1234")
       click_button("Login")
       expect(page).to have_content("New Question")
