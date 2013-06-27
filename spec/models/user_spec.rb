@@ -7,7 +7,7 @@ describe User do
   end
 
   it "should add a user to the database when created" do
-    User.create(username: "giorgio", email: "giorgio@giorgio.com", password: "abcde")
+    FactoryGirl.create(:user)
     User.all.count.should eq(@count+1)
   end
 
@@ -22,7 +22,7 @@ describe User do
   end
 
   it "should not create a user if username/email is already taken" do
-    User.create(username: "niles", email: "niles@neville.com", password: "1234")
+    FactoryGirl.create(:user)
     User.create(username: "niles", email: "niless@neville.com", password: "1234")
     User.create(username: "niless", email: "niles@neville.com", password: "1234")
     User.all.count.should eq(@count+1)
