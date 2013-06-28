@@ -23,12 +23,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if current_user.id == params[:id].to_i
-      @user = User.find(params[:id])
-      render :edit
-    else
-      redirect_to root_url
-    end
+    @user = User.find(params[:id])
   end
 
   def update
