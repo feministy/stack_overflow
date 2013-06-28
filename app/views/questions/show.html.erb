@@ -1,30 +1,49 @@
 <h2><%= @question.title %></h2>
 
-<p>
-  <%= @question.content %>
-</p>
 
-<% if current_user.id == @question.user_id %>
-  <p>
-    You cannot answer your own question.
-  </p>
-<% elsif current_user %>
-  <%= form_for ([@question, @answer]) do |f| %>
-    <%= f.label :content %>
-    <%= f.text_area :content %><br>
-    <%= f.submit ("Submit Answer") %>
+<h3><%= @question.content %></h3>
+
+
+<% if current_user %>
+
+  <p>Score: <%= @question.votes.sum('value') %></p>
+
+  <%= link_to "Add Comment", new_comment_path(:comment => { target_id: @question.id, target_type: 'question', question_id: @question.id }) %>
+
+  <%= form_for @vote do |f| %>
+    <%= hidden_field_tag 'value', '1' %>
+    <%= hidden_field_tag 'question_id', @question.id %>
+    <%= hidden_field_tag 'type', 'question' %>
+    <%= f.submit ("Vote Up") %>
   <% end %>
-<% else %>
-  <p>
-    Have the answer? <%= link_to "Login", login_path %> or <%= link_to "signup", signup_path %> to share your fluff.
-  </p>
+
+  <%= form_for @vote do |f| %>
+    <%= hidden_field_tag 'value', '-1' %>
+    <%= hidden_field_tag 'question_id', @question.id %>
+    <%= hidden_field_tag 'type', 'question' %>
+    <%= f.submit ("Vote Down") %>
+  <% end %>
 <% end %>
 
-<% if @question.answers %>
-  <% @question.answers.each do |answer|%>
+<% if @question.comments %>
+  <% @question.comments.each do |comment| %>
     <p>
-    <%= answer.content %><br>
-    Answered on <%= (answer.created_at).strftime('%F at %I:%M %p') %> by <%= link_to "#{answer.user.username}", user_path(answer.user_id) %>
+      <%= comment.content %>
     </p>
+    <p>
+      <%= comment.user.username %>
+    </p>
+    <% if comment.user_id == current_user.id %>
+      <p><%= link_to "Edit Comment", edit_comment_path(:comment => { comment_id: comment.id, question_id: @question.id }) %></p>
+      <p><%= link_to "Delete Comment", comment_path(:comment => {comment_id: comment.id, question_id: @question.id }), :method => :delete %></p>
+    <% end %>
   <% end %>
 <% end %>
+
+<div id="answers">
+  <%= render "shared/answers" %>
+</div>
+<%= render "shared/answernew" %>
+
+
+
