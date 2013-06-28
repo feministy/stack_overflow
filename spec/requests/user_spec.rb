@@ -33,13 +33,12 @@ describe "A user can" do
   context "on home page" do
     it "cannot ask question unless logged in" do
       visit root_path
-      click_link("Ask a question")
-      expect(page).to have_content("Username")
+      expect(page).to have_no_content("Ask a question")
     end
 
     it "can ask question once logged in" do
       sign_in
-      expect(page).to have_content("New Question")
+      expect(page).to have_content("Ask a question")
     end
   end
 end
