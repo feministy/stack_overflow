@@ -19,9 +19,13 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = Question.new(params[:question])
+    @question = Question.new(title: params[:question][:title], content: params[:question][:content])
     @question.user_id = current_user.id
+
     if @question.save
+      tag_array = parse_tags(params[:question][:tags])
+      tag_array.each { |tag| @question.tags.create(name: tag) }
+      
       redirect_to questions_path
     else
       render :new

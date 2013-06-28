@@ -1,6 +1,6 @@
 class Question < ActiveRecord::Base
   
-  attr_accessible :title, :content, :user_id
+  attr_accessible :title, :content, :user_id, :tags
 
   belongs_to :user
   
