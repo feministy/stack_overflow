@@ -50,7 +50,7 @@
     <% @question.comments.each do |comment| %>
       <p class="comment-text">
         <%= comment.user.username %> says: <%= comment.content %>
-      <% if comment.user_id == current_user.id %>
+      <% if current_user && (comment.user_id == current_user.id) %>
         <br><%= link_to "Edit", edit_comment_path(:comment => { comment_id: comment.id, question_id: @question.id }), { :class => "small" } %> &bull;
         <%= link_to "Delete", comment_path(:comment => {comment_id: comment.id, question_id: @question.id }), {:method => :delete, :class => "small"} %>
       <% end %>

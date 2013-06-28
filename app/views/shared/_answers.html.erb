@@ -22,6 +22,7 @@
         <%= hidden_field_tag 'type', 'answer' %>
         <%= f.submit ("Down") %>
       <% end %>
+      <% end %>
     </div>
     <p>
     <div class="answer-content">
@@ -43,7 +44,7 @@
           <p class="answer-comment">
             <%= link_to "#{comment.user.username}", user_path(comment.user_id) %> says:<br>
             <%= comment.content %>
-            <% if comment.user_id == current_user.id %>
+            <% if current_user && (comment.user_id == current_user.id) %>
               <br><%= link_to "Edit", edit_comment_path(:comment => { comment_id: comment.id, question_id: @question.id }), { :class => "small" } %> &bull;
               <%= link_to "Delete", comment_path(:comment => {comment_id: comment.id, question_id: @question.id }), {:method => :delete, :class => "small"} %>
             <% end %>
@@ -51,8 +52,6 @@
             <% end %>
       <% end %>
 
-
-    <% end %>
   <% end %>
 <% end %>
       
