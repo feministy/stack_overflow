@@ -1,4 +1,5 @@
 FactoryGirl.define do
+  
   factory :question do
     title   "sample title"
     content "sample content"
@@ -9,7 +10,6 @@ FactoryGirl.define do
     username "niles" 
     email    "niles@neville.com" 
     password "1234"
-    
   end
 
 end
