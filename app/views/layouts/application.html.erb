@@ -14,7 +14,15 @@
   </header>
 
   <nav>
-    <%= render "shared/anonmenu" %>
+    <ul class="nav">
+      <li class="nav"><%= link_to "All questions", questions_path %></li>
+      <li class="nav"><%= link_to "All users", users_path %></li>
+      <% if current_user %>
+        <%= render "shared/usermenu" %>
+      <% else %>
+        <%= render "shared/anonmenu" %>
+      <% end %>
+    </ul>
   </nav>
   
   <div id="container">
