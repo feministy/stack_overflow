@@ -5,6 +5,7 @@ StackOverflow::Application.routes.draw do
   
   resources :users
   resources :votes
+  resources :tags, only: [:index, :show]
   resources :sessions, only: [:new, :create, :destroy]
 
   match '/signup',  to: 'users#new'
