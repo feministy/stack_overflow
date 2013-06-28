@@ -24,8 +24,9 @@ class QuestionsController < ApplicationController
 
     if @question.save
       tag_array = parse_tags(params[:question][:tags])
-      tag_array.each { |tag| @question.tags.create(name: tag) }
-      
+      tag_array.each do |tag| 
+        @question.tags << Tag.find_or_create_by_name(tag) 
+      end
       redirect_to questions_path
     else
       render :new

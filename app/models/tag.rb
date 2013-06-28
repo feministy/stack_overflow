@@ -5,4 +5,6 @@ class Tag < ActiveRecord::Base
   has_many :questions, through: :questions_tags
 
   validates_presence_of :name
+  validates_uniqueness_of :name
+
 end
