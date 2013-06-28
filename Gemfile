@@ -45,5 +45,6 @@ group :test do
   gem 'growl'
   gem 'database_cleaner'
   gem 'launchy'
+  gem 'selenium-webdriver'
 end
 
