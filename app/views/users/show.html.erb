@@ -1,7 +1,9 @@
-<h2>User Profile Page</h2>
+<h2>User Profile</h2>
 
-<p>Username: <%= @user.username %> </p>
-<p>Email: <%= @user.email %> </p>
+<p>
+  Username: <%= @user.username %> <br>
+  Email: <%= @user.email %>
+</p>
 
 <% if is_user? %>
   <p>
@@ -10,13 +12,31 @@
 <% end %>
 
 
+<h3>Questions</h3>
 <% if @user.questions %>
-  <h2> Questions You've Asked: </h2>
-  <ul>
-    <% @user.questions.each do |question| %> 
-    <li> <%= question.title %> </li>
-    <% end %>
-  </ul>
+  <% @user.questions.each do |question| %> 
+    <ul>
+      <li>Question: <%= question.title %></li>
+      <li>Votes: <%= question.votes.sum('value') %></li>
+      <li>Number of replies: <%= question.answers.count %></li>
+      <li><%= link_to "View thread", question_path(question.id) %></li>
+    </ul>
+  <% end %>
+<% else %>
+  <p>
+    <%= @user.name %> hasn't asked any questions yet. 
+  </p>
 <% end %>
 
+<h3>Answers</h3>
+<% if @user.answers %>
+  <% @user.answers.each do |answer| %>
+    <ul>
+      <li>Question: <%= answer.question.title %></li>
+      <li>Votes: <%= answer.votes.sum('value') %></li>
+      <li><%= link_to "View thread", question_path(answer.question_id) %></li>
+    </ul>
+  <% end %>
 
+
+<% end %>
