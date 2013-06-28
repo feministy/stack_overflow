@@ -2,7 +2,7 @@ StackOverflow::Application.routes.draw do
   resources :questions do
     resources :answers
   end
-  
+  resources :comments
   resources :users
   resources :votes
   resources :sessions, only: [:new, :create, :destroy]

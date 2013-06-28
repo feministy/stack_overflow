@@ -1,0 +1,12 @@
+<h2>New Comment</h2>
+
+<%= form_for @comment do |f| %>
+  <p>
+    <%= f.label :content %>
+    <%= f.text_area :content, size: "60x12" %>
+  </p>
+    <%= hidden_field_tag 'target_type', @target_type %>
+    <%= hidden_field_tag 'target_id', @target.id %>
+    <%= hidden_field_tag 'question_id', @question.id %>
+  <%= f.submit ("Submit Comment") %>
+<% end %>
