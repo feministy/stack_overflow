@@ -13,7 +13,7 @@ input, textarea {
   border: 4px solid #DDDDDD;
 }
 
-.nav ul, li {
+ul.nav, li.nav {
   display: inline;
   padding-right: 20px;
 }
