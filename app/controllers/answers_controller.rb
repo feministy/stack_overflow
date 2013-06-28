@@ -9,11 +9,12 @@ class AnswersController < ApplicationController
 
   def create
     content = params[:answer][:content]
-    question_id = params[:question_id]
+    @question = Question.find(params[:question_id])
     user_id = current_user.id
-    @answer = Answer.new(content: content, question_id: question_id, user_id: user_id)
+    @answer = Answer.new(content: content, question_id: @question.id, user_id: user_id)
+    @vote = Vote.new
     if @answer.save
-      redirect_to question_path(question_id)
+      render "shared/_answers.html.erb", layout: false
     else
       redirect_to questions_path
     end
