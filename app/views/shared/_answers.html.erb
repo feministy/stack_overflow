@@ -1,20 +1,18 @@
+<h3>Answers</h3>
+ <p>
+  <a href="#newanswer" class="small">Add new answer</a>
+</p>
 <% if @question.answers %>
   <% @question.answers.each do |answer|%>
-    <p>
-    <%= answer.content %><br>
-    Answered on <%= (answer.created_at).strftime('%F at %I:%M %p') %> by <%= link_to "#{answer.user.username}", user_path(answer.user_id) %>
-    </p>
-
+    <div class="score">
+    <p><%= answer.votes.sum('value') %></p>
     <% if current_user %>
-
-      <p>Score: <%= answer.votes.sum('value') %></p>
-
       <%= form_for @vote do |f| %>
         <%= hidden_field_tag 'value', '1' %>
         <%= hidden_field_tag 'question_id', @question.id %>
         <%= hidden_field_tag 'answer_id', answer.id %>
         <%= hidden_field_tag 'type', 'answer' %>
-        <%= f.submit ("Vote Up") %>
+        <%= f.submit ("Up") %>
       <% end %>
 
       <%= form_for @vote do |f| %>
@@ -22,23 +20,37 @@
         <%= hidden_field_tag 'question_id', @question.id %>
         <%= hidden_field_tag 'answer_id', answer.id %>
         <%= hidden_field_tag 'type', 'answer' %>
-        <%= f.submit ("Vote Down") %>
+        <%= f.submit ("Down") %>
       <% end %>
+    </div>
+    <p>
+    <div class="answer-content">
+      <p>
+        <b><%= link_to "#{answer.user.username}", user_path(answer.user_id) %></b> answered:
+      </p>
+      <p>
+        <%= answer.content %><br>
+        <small><%= (answer.created_at).strftime('%F at %I:%M %p') %></small>
+      </p>
+    </div>
+    <p class="answer-comment">
+      <%= link_to "Comment on this answer", new_comment_path(:comment => { target_id: answer.id, target_type: 'answer', question_id: @question.id }), { :class => "small" } %>
+    <br><br>
 
       <% if answer.comments.any? %>
+        <b>Comments</b></p>
         <% answer.comments.each do |comment| %>
-          <p><%= comment.content %></p>
-          <p>
-            Added at: <%= (comment.created_at).strftime('%F at %I:%M %p') %> by <%= link_to "#{comment.user.username}", user_path(comment.user_id) %>
+          <p class="answer-comment">
+            <%= link_to "#{comment.user.username}", user_path(comment.user_id) %> says:<br>
+            <%= comment.content %>
+            <% if comment.user_id == current_user.id %>
+              <br><%= link_to "Edit", edit_comment_path(:comment => { comment_id: comment.id, question_id: @question.id }), { :class => "small" } %> &bull;
+              <%= link_to "Delete", comment_path(:comment => {comment_id: comment.id, question_id: @question.id }), {:method => :delete, :class => "small"} %>
+            <% end %>
           </p>
-          <p> <%= link_to "Edit Comment", edit_comment_path(:comment => { comment_id: comment.id, question_id: @question.id }) %> </p>
-          <p><%= link_to "Delete Comment", comment_path(:comment => {comment_id: comment.id, question_id: @question.id }), :method => :delete %></p>
-        <% end %>
+            <% end %>
       <% end %>
 
-      <p>
-        <%= link_to "Add Comment", new_comment_path(:comment => { target_id: answer.id, target_type: 'answer', question_id: @question.id }) %>
-      </p>
 
     <% end %>
   <% end %>

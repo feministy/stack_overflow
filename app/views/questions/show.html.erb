@@ -1,49 +1,74 @@
 <h2><%= @question.title %></h2>
 
-
-<h3><%= @question.content %></h3>
-
-
-
-  <p>Score: <%= @question.votes.sum('value') %></p>
-
-
-<% if current_user %>
-  <%= link_to "Add Comment", new_comment_path(:comment => { target_id: @question.id, target_type: 'question', question_id: @question.id }) %>
-
-  <%= form_for @vote do |f| %>
-    <%= hidden_field_tag 'value', '1' %>
-    <%= hidden_field_tag 'question_id', @question.id %>
-    <%= hidden_field_tag 'type', 'question' %>
-    <%= f.submit ("Vote Up") %>
-  <% end %>
-
-  <%= form_for @vote do |f| %>
-    <%= hidden_field_tag 'value', '-1' %>
-    <%= hidden_field_tag 'question_id', @question.id %>
-    <%= hidden_field_tag 'type', 'question' %>
-    <%= f.submit ("Vote Down") %>
-  <% end %>
-<% end %>
-
-<% if @question.comments %>
-  <% @question.comments.each do |comment| %>
+<div id="question">
+  <div class="score">
     <p>
-      <%= comment.content %>
+      <%= @question.votes.sum('value') %>
+      <% if current_user %>
+        <%= form_for @vote do |f| %>
+          <%= hidden_field_tag 'value', '1' %>
+          <%= hidden_field_tag 'question_id', @question.id %>
+          <%= hidden_field_tag 'type', 'question' %>
+          <%= f.submit ("Up") %>
+        <% end %>
+
+        <%= form_for @vote do |f| %>
+          <%= hidden_field_tag 'value', '-1' %>
+          <%= hidden_field_tag 'question_id', @question.id %>
+          <%= hidden_field_tag 'type', 'question' %>
+          <%= f.submit ("Down") %>
+        <% end %>
+      <% end %>
+    </p>
+  </div>
+
+  <div class="question-content">
+    <p>
+      Author: <%= link_to "#{@question.user.username}", user_path(@question.user_id) %>
     </p>
     <p>
-      <%= comment.user.username %>
+      <%= @question.content %>
     </p>
-    <% if comment.user_id == current_user.id %>
-      <p><%= link_to "Edit Comment", edit_comment_path(:comment => { comment_id: comment.id, question_id: @question.id }) %></p>
-      <p><%= link_to "Delete Comment", comment_path(:comment => {comment_id: comment.id, question_id: @question.id }), :method => :delete %></p>
+    <p>
+      Tags: TBD
+    </p>
+  </div>
+
+</div>
+
+
+
+<div id="question-comment">
+   <h3>Comments</h3>
+   <div id="commentBox">
+      <% if current_user %>
+        <%= link_to "Add new comment", new_comment_path(:comment => { target_id: @question.id, target_type: 'question', question_id: @question.id }), { :class => "small" } %>
+      <% end %>
+    </div>
+
+  <% if @question.comments %>
+    <% @question.comments.each do |comment| %>
+      <p class="comment-text">
+        <%= comment.user.username %> says: <%= comment.content %>
+      <% if comment.user_id == current_user.id %>
+        <br><%= link_to "Edit", edit_comment_path(:comment => { comment_id: comment.id, question_id: @question.id }), { :class => "small" } %> &bull;
+        <%= link_to "Delete", comment_path(:comment => {comment_id: comment.id, question_id: @question.id }), {:method => :delete, :class => "small"} %>
+      <% end %>
+      </p>
     <% end %>
+  <% else %>
+    <p>
+      No comments yet. You should add one!
+    </p>
   <% end %>
-<% end %>
+</div>
 
-<div id="answers">
+
+<div id="answers"> 
   <%= render "shared/answers" %>
 </div>
+
+<a name="newanswer"></a>
 <%= render "shared/answernew" %>
 
 

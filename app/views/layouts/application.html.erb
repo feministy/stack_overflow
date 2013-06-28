@@ -6,6 +6,7 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Life+Savers:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
@@ -14,6 +15,7 @@
   </header>
 
   <nav>
+    <span class="logo">Stack</span><span class="logo-em">Overfluff</span><br>
     <ul class="nav">
       <li class="nav"><%= link_to "All questions", questions_path %></li>
       <li class="nav"><%= link_to "All users", users_path %></li>
