@@ -1,14 +1,10 @@
 require 'spec_helper'
 
 describe "A user can" do
-
   context "on login page" do
 
     it "log in the user with correct credentials" do
-      FactoryGirl.create(:user)
-      visit login_path
-      fill_in("Username", :with => "niles")
-      fill_in("Password", :with => "1234")
+      sign_in
       click_button("Login")
       expect(page).to have_content("New Question")
     end
@@ -26,7 +22,9 @@ describe "A user can" do
     end
   end
 
+
   it "successfully log out" do
+    sign_in
     visit new_question_path
     click_link("Logout")
     expect(page).to have_content("Password")
@@ -40,12 +38,7 @@ describe "A user can" do
     end
 
     it "can ask question once logged in" do
-      visit root_path
-      FactoryGirl.create(:user)
-      click_link("Login")
-      fill_in("Username", :with => "niles")
-      fill_in("Password", :with => "1234")
-      click_button("Login")
+      sign_in
       expect(page).to have_content("New Question")
     end
   end
