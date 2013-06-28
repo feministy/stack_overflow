@@ -1,9 +1,4 @@
-<% if current_user.id == @question.user_id %>
-  <p>
-    You cannot answer your own question.
-  </p>
-
-<% elsif current_user %>
+<% if current_user %>
   <%= form_for ([@question, @answer]) do |f| %>
     <p>
       <%= f.label :content %>
