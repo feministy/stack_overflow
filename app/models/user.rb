@@ -1,14 +1,12 @@
 class User < ActiveRecord::Base
+  attr_accessible :username, :email, :password
+
   has_many :questions
   has_many :answers
   has_many :votes
-
-  has_many :comments, as: :commentable
-  has_many :votes, as: :votable
-
+  has_many :comments
+  
   has_secure_password
-
-  attr_accessible :username, :email, :password
 
   validates_uniqueness_of :username, :email
   validates_presence_of :password, :on => :create
