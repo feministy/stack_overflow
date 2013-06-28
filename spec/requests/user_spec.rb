@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe User do
+describe "A user can" do
 
   context "on login page" do
 
-    it "should log in the user with correct credentials" do
+    it "log in the user with correct credentials" do
       FactoryGirl.create(:user)
       visit login_path
       fill_in("Username", :with => "niles")
@@ -16,7 +16,7 @@ describe User do
 
   context "on signup page" do
 
-    it "should create a user given valid inputs" do
+    it "create a user given valid inputs" do
       visit signup_path
       fill_in("Username", :with => "niles2")
       fill_in("Email",    :with => "niles@whatwhat.com")
@@ -26,12 +26,10 @@ describe User do
     end
   end
 
-  context "on logout" do
-    it "should successfully log user out" do
-      visit new_question_path
-      click_link("Logout")
-      expect(page).to have_content("Password")
-    end
+  it "successfully log out" do
+    visit new_question_path
+    click_link("Logout")
+    expect(page).to have_content("Password")
   end
 
   context "on home page" do
@@ -41,7 +39,7 @@ describe User do
       expect(page).to have_content("Username")
     end
 
-    it "allows user to ask question once logged in" do
+    it "can ask question once logged in" do
       visit root_path
       FactoryGirl.create(:user)
       click_link("Login")
