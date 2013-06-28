@@ -2,16 +2,18 @@
 
 <%= form_for @question do |f| %>
   <p>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.label :title, "Question" %>
   </p>
+    <%= f.text_field :title %>
 
   <p>
-    <%= f.label :content %>
+    <%= f.label :content, "Expand..." %>
+  </p>
     <%= f.text_area :content, size: "60x12" %>
+  
+  <p>
+    <%= f.submit ("Ask Question") %>
   </p>
   
-  <%= f.submit ("Ask Question") %>
-
 <% end %>
 
