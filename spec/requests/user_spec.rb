@@ -1,14 +1,10 @@
 require 'spec_helper'
 
-describe User do
-
+describe "A user can" do
   context "on login page" do
 
-    it "should log in the user with correct credentials" do
-      FactoryGirl.create(:user)
-      visit login_path
-      fill_in("Username", :with => "niles")
-      fill_in("Password", :with => "1234")
+    it "log in the user with correct credentials" do
+      sign_in
       click_button("Login")
       expect(page).to have_content("New Question")
     end
@@ -16,7 +12,7 @@ describe User do
 
   context "on signup page" do
 
-    it "should create a user given valid inputs" do
+    it "create a user given valid inputs" do
       visit signup_path
       fill_in("Username", :with => "niles2")
       fill_in("Email",    :with => "niles@whatwhat.com")
@@ -26,29 +22,23 @@ describe User do
     end
   end
 
-  context "on logout" do
-    it "should successfully log user out" do
-      visit new_question_path
-      click_link("Logout")
-      expect(page).to have_content("Password")
-    end
+
+  it "successfully log out" do
+    sign_in
+    visit new_question_path
+    click_link("Logout")
+    expect(page).to have_content("Password")
   end
 
   context "on home page" do
     it "cannot ask question unless logged in" do
       visit root_path
-      click_link("Ask a question")
-      expect(page).to have_content("Username")
+      expect(page).to have_no_content("Ask a question")
     end
 
-    it "allows user to ask question once logged in" do
-      visit root_path
-      FactoryGirl.create(:user)
-      click_link("Login")
-      fill_in("Username", :with => "niles")
-      fill_in("Password", :with => "1234")
-      click_button("Login")
-      expect(page).to have_content("New Question")
+    it "can ask question once logged in" do
+      sign_in
+      expect(page).to have_content("Ask a question")
     end
   end
 end
