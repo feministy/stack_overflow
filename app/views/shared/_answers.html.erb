@@ -24,7 +24,23 @@
         <%= hidden_field_tag 'type', 'answer' %>
         <%= f.submit ("Vote Down") %>
       <% end %>
-    <% end %>
 
+      <% if answer.comments.any? %>
+        <% answer.comments.each do |comment| %>
+          <p><%= comment.content %></p>
+          <p>
+            Added at: <%= (comment.created_at).strftime('%F at %I:%M %p') %> by <%= link_to "#{comment.user.username}", user_path(comment.user_id) %>
+          </p>
+          <p> <%= link_to "Edit Comment", edit_comment_path(:comment => { comment_id: comment.id, question_id: @question.id }) %> </p>
+          <p><%= link_to "Delete Comment", comment_path(:comment => {comment_id: comment.id, question_id: @question.id }), :method => :delete %></p>
+        <% end %>
+      <% end %>
+
+      <p>
+        <%= link_to "Add Comment", new_comment_path(:comment => { target_id: answer.id, target_type: 'answer', question_id: @question.id }) %>
+      </p>
+
+    <% end %>
   <% end %>
 <% end %>
+      
