@@ -37,6 +37,8 @@
       <li><%= link_to "View thread", question_path(answer.question_id) %></li>
     </ul>
   <% end %>
-
-
+<% else %>
+  <p>
+    <%= @user.name %> hasn't answered any questions yet. 
+  </p>
 <% end %>
